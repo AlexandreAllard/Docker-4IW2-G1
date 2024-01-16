@@ -2,14 +2,14 @@ version: '3.7'
 
 services:
   symfony:
-    image: php:7.4-fpm
+    build: ./docker/symfony
     volumes:
-      - .:/var/www/symfony
+      - ./symfony-app:/var/www/symfony
     depends_on:
       - database
 
   database:
-    image: postgres:12
+    build: ./docker/postgres
     environment:
       POSTGRES_DB: symfony
       POSTGRES_USER: user
@@ -18,19 +18,11 @@ services:
       - db_data:/var/lib/postgresql/data
 
   adminer:
-    image: adminer
+    build: ./docker/adminer
     ports:
       - 8080:8080
     depends_on:
       - database
-
-  composer:
-    image: composer:latest
-    volumes:
-      - .:/app
-    command: composer install
-    depends_on:
-      - symfony
 
 volumes:
   db_data:
