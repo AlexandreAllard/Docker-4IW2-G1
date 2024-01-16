@@ -1,0 +1,9 @@
+version: '3.7'
+
+services:
+  symfony:
+    build:
+      context: ./docker/symfony
+
+volumes:
+  db_data:
