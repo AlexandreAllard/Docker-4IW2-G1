@@ -5,6 +5,5 @@ services:
     image: vinderzz/symfony
     ports:
       - "80:8000"
-
-volumes:
-  db_data:
+    volumes:
+      - ./api:/var/www/html

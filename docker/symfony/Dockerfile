@@ -35,6 +35,7 @@ RUN ln -s /usr/bin/php82 /usr/bin/php
 ###< Bind du bin php8.2 à php ###
 
 ###> Installation de composer ###
+# Nécessaire pour générer le projet (symfony new)
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 ###< Installation de composer ###
 
@@ -45,14 +46,12 @@ RUN curl -1sLf 'https://dl.cloudsmith.io/public/symfony/stable/setup.alpine.sh' 
 RUN apk add symfony-cli
 ###< Symfony CLI ###
 
-###> Setup du skeleton de base (spécifié api et sans git) ###
-RUN symfony new --api --no-git --dir=/var/www/html/partiel
-###< Setup du skeleton de base (spécifié api et sans git) ###
+###> Port du serveur local symfony
+EXPOSE 8000
+###< Port du serveur local symfony
 
 ###> Changement du workdir et start du serveur automatique ###
-WORKDIR /var/www/html/partiel
-
-EXPOSE 8000
+WORKDIR /var/www/html
 
 ENTRYPOINT ["symfony", "server:start"]
 ###< Changement du workdir et start du serveur automatique ###
