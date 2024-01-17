@@ -51,5 +51,8 @@ RUN symfony new --api --no-git --dir=/var/www/html/partiel
 
 ###> Changement du workdir et start du serveur automatique ###
 WORKDIR /var/www/html/partiel
+
+EXPOSE 8000
+
 ENTRYPOINT ["symfony", "server:start"]
 ###< Changement du workdir et start du serveur automatique ###
