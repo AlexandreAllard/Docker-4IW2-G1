@@ -39,6 +39,7 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 ###< Installation de composer ###
 
 ###> Symfony CLI ###
+# Installation du repository symfony/stable (permet l'accès à symfony-cli)
 RUN curl -1sLf 'https://dl.cloudsmith.io/public/symfony/stable/setup.alpine.sh' | sudo -E bash
 
 RUN apk add symfony-cli
@@ -48,8 +49,7 @@ RUN apk add symfony-cli
 RUN symfony new --api --no-git --dir=/var/www/html/partiel
 ###< Setup du skeleton de base (spécifié api et sans git) ###
 
-
 ###> Changement du workdir et start du serveur automatique ###
 WORKDIR /var/www/html/partiel
-CMD ["symfony", "server:start"]
+ENTRYPOINT ["symfony", "server:start"]
 ###< Changement du workdir et start du serveur automatique ###
