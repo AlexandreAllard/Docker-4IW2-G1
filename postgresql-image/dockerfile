@@ -1,0 +1,23 @@
+FROM alpine:3.19
+
+# Create variable for bash script
+ENV PGDATA /var/lib/postgresql/data
+
+# System update && install PostgreSQL
+RUN apk --no-cache update && \
+    apk --no-cache add su-exec postgresql16
+
+VOLUME /var/lib/postgresql/data
+
+COPY docker-script.sh /
+
+# Give permissions to script
+# Create folder for PostgreSQL Socket
+RUN chmod -R 755 /docker-script.sh && \
+    mkdir -p /run/postgresql && \
+    chown postgres: /run/postgresql
+
+# Execute script
+ENTRYPOINT [ "/docker-script.sh" ]
+
+EXPOSE 5432

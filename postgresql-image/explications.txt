@@ -1,0 +1,25 @@
+Création d'une image custom postgreSQL sous Alpine 3.19
+--------------------------------------------------------
+////////////////////////////////////////////////////////
+
+--> Le dockerfile:
+À partir d'une image Alpine (version 3.19)
+    - Création d'une variable d'environnement pour notre script bash
+    - Mise à jour d'alpine 
+    - Installation de deux paquets:
+        - su-exec
+        - postgresql16
+    - VOLUME /var/lib/postgresql/data | point de communication avec le host et le container
+    - Ajout du script à la racine 
+    - Ajout des permissions au script pour la futur exécution
+    - Création du dossier PostgreSQL Socket
+    - Exécution du script
+    - Exposition du port 5432
+
+--> Le script bash:
+
+
+Sources / Documents aides:
+https://luppeng.wordpress.com/2020/02/28/install-and-start-postgresql-on-alpine-linux/
+https://cadu.dev/creating-a-docker-image-with-database-preloaded/
+https://github.com/yobasystems/alpine-postgres/blob/master/alpine-postgres-amd64/Dockerfile
