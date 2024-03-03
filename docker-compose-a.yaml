@@ -1,15 +1,8 @@
-version: '3.7'
+version: '3.8'
 
 services:
-  symfony:
-    build: ./docker/symfony
-    volumes:
-      - ./symfony-app:/var/www/symfony
-    depends_on:
-      - database
-
   database:
-    image: deevadabrat/postgres
+    image: inesdabrat/postgresql-image
     environment:
       POSTGRES_DB: symfony
       POSTGRES_USER: user
@@ -21,7 +14,7 @@ services:
     image: alexandrealrd/composer
     volumes:
       - ./docker/composer:/var/www/html/composer
-    command: ["composer", "install"]
+    command: ["composer", "install", "--no-interaction", "--prefer-dist", "--optimize-autoloader"]
 
 volumes:
   db_data:
