@@ -16,5 +16,10 @@ services:
       - ./docker/composer:/var/www/html/composer
     command: ["composer", "install", "--no-interaction", "--prefer-dist", "--optimize-autoloader"]
 
+  adminer:
+    image: alexandrealrd/adminer
+    ports:
+      - '8080:8080'
+
 volumes:
   db_data:
