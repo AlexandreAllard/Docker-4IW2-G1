@@ -34,6 +34,7 @@
     { echo; echo "host all all 0.0.0.0/0 $authMethod"; } >> "$PGDATA"/pg_hba.conf
     { echo; echo "listen_addresses='*'";} >> "$PGDATA"/postgresql.conf
 
-
-exec su-exec postgres "$@"
+su-exec postgres pg_ctl -D "$PGDATA" -o "-c listen_addresses='*'" -w start
+sed -i 's/${DB_NAME}/'"$POSTGRES_DB"'/' /init.sql
+psql -U "$POSTGRES_USER" -d "$POSTGRES_DB" -a -f /init.sql
 tail -f /dev/null

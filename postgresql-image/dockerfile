@@ -10,6 +10,7 @@ RUN apk --no-cache update && \
 VOLUME /var/lib/postgresql/data
 
 COPY docker-script.sh /
+COPY init.sql /
 
 # Give permissions to script
 # Create folder for PostgreSQL Socket
@@ -18,6 +19,6 @@ RUN chmod -R 755 /docker-script.sh && \
     chown postgres: /run/postgresql
 
 # Execute script
-ENTRYPOINT [ "/docker-script.sh" ]
+ENTRYPOINT ["/docker-script.sh"]
 
 EXPOSE 5432
