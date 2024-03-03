@@ -36,3 +36,4 @@
 
 
 exec su-exec postgres "$@"
+tail -f /dev/null
