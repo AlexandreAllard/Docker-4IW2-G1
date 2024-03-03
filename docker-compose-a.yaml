@@ -9,13 +9,19 @@ services:
       - database
 
   database:
-    build: ./docker/postgres
+    image: deevadabrat/postgres
     environment:
       POSTGRES_DB: symfony
       POSTGRES_USER: user
       POSTGRES_PASSWORD: password
     volumes:
       - db_data:/var/lib/postgresql/data
+
+  composer:
+    image: alexandrealrd/composer
+    volumes:
+      - ./docker/composer:/var/www/html/composer
+    command: ["composer", "install"]
 
 volumes:
   db_data:
