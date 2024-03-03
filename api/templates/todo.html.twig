@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Todo-list{% endblock %}
+
+{% block body %}
+    <h1>Todos</h1>
+    <ol>
+        {% for todo in todos %}
+            <li>
+                {{ todo.titre }} - {{ todo.done ? 'Fait' : 'A faire' }}
+            </li>
+        {% endfor %}
+    </ol>
+{% endblock %}
