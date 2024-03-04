@@ -1,16 +1,16 @@
-FROM php:7.4-fpm-alpine
+FROM alpine:latest
 
-# Installer PostgreSQL dev
-RUN apk add --no-cache postgresql-dev
+RUN apk update && apk add --no-cache \
+    php7 \
+    php7-fpm \
+    php7-pdo \
+    php7-pdo_pgsql \
+    php7-pgsql \
+    curl
 
-# Installer les extensions PHP
-RUN docker-php-ext-install pgsql pdo_pgsql
+RUN mkdir -p /var/www/adminer && \
+    curl -o /var/www/adminer/index.php -L https://www.adminer.org/latest.php
 
-# Télécharger Adminer
-ADD https://www.adminer.org/latest.php /var/www/adminer/index.php
-
-# Exposer le port
 EXPOSE 8080
 
-# Lancer le serveur PHP
 CMD ["php", "-S", "0.0.0.0:8080", "-t", "/var/www/adminer"]
