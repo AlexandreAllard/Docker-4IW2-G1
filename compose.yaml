@@ -14,8 +14,9 @@ services:
   composer:
     image: alexandrealrd/composer
     volumes:
-      - ./docker/composer:/var/www/html/composer
-    command: [ "composer", "install", "--no-interaction", "--prefer-dist", "--optimize-autoloader" ]
+      - ./api:/var/www/html
+      - ./docker-raw-files/composer:/var/www/html/composer
+    command: /bin/sh -c "composer install --no-interaction --prefer-dist --optimize-autoloader && tail -f /dev/null"
 
   adminer:
     image: alexandrealrd/adminer
