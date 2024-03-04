@@ -1,4 +1,7 @@
-version: '3.7'
+version: '3.8'
+
+include:
+  - compose-database.yaml
 
 services:
   symfony:
@@ -8,16 +11,13 @@ services:
     volumes:
       - ./api:/var/www/html
 
-  database:
-    image: inesdabrat/postgresql-image
-    environment:
-      POSTGRES_DB: symfony
-      POSTGRES_USER: victor
-      POSTGRES_PASSWORD: password
-    ports:
-      - "5432:5432"
+  composer:
+    image: alexandrealrd/composer
     volumes:
-      - db_data:/var/lib/postgresql/data
+      - ./docker/composer:/var/www/html/composer
+    command: [ "composer", "install", "--no-interaction", "--prefer-dist", "--optimize-autoloader" ]
 
-volumes:
-    db_data:
+  adminer:
+    image: alexandrealrd/adminer
+    ports:
+      - '8080:8080'

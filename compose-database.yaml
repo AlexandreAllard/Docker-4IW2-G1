@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  database:
+    image: inesdabrat/postgresql-image
+    environment:
+      POSTGRES_DB: symfony
+      POSTGRES_USER: victor
+      POSTGRES_PASSWORD: password
+    ports:
+      - "5432:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
+volumes:
+  db_data:
